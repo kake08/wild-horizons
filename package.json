@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kake08/wild-horizons/issues"
   },
-  "homepage": "https://github.com/kake08/wild-horizons#readme"
+  "homepage": "https://github.com/kake08/wild-horizons#readme",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
