@@ -1,17 +1,30 @@
-import { createServer } from 'node:http'
+import http from 'node:http'
+import { getDataFromDB } from './database/db.js'
+import { sendJSONResponse } from './utils/sendJSONResponse.js'
+import { filterData } from './utils/filterData.js'
+ 
+const PORT = 8000
 
-const PORT = 5000
+const server = http.createServer(async (req, res) => {
+  const destinations = await getDataFromDB()
 
-const server = createServer((req, res) => {
+  if (req.url === '/api' && req.method === 'GET') {
+    sendJSONResponse(res, 200, destinations)
+  } 
+  else if (req.url.startsWith('/api/continent') && req.method === 'GET') {
 
-    console.log(req.url)
+    const filteredData = filterData(req, destinations)
+    sendJSONResponse(res, 200, filteredData)
+  } 
+  else if (req.url.startsWith('/api/country') && req.method==='GET') {
+    const filteredData = filterData(req, destinations)
+    sendJSONResponse(res, 200, filteredData)
+  }
+  else {
+    const errorResponse = {error: "not found", message: "The requested route does not exist"}
+    sendJSONResponse(res, 404, errorResponse)
+  }
 
-    if (req.url == "/api") {
-        res.end('This is from the server.')
-    }
-    else 
-        res.end('root url')
-        
 })
 
-server.listen(PORT, () => console.log("CONNECTED to PORT 5000"))
+server.listen(PORT, () => console.log(`Connected on port: ${PORT}`))
