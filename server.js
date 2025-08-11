@@ -6,10 +6,23 @@ import { filterData } from './utils/filterData.js'
 const PORT = 8000
 
 const server = http.createServer(async (req, res) => {
-  const destinations = await getDataFromDB()
 
-  if (req.url === '/api' && req.method === 'GET') {
-    sendJSONResponse(res, 200, destinations)
+    const urlObj = new URL(req.url, `http://${req.headers.host}`)
+    console.log(urlObj)
+
+
+    const destinations = await getDataFromDB()
+
+  if (urlObj.pathname === '/api' && req.method === 'GET') {
+    
+    if (urlObj.search != '') {
+        //NEED TO FILTER DATA IF ' urlObj.search: ?key=value ' exists
+        const queryObj =  Object.fromEntries(urlObj.searchParams)
+        console.log(queryObj['country'])  
+    } else {
+        let filteredData = destinations
+    }
+    sendJSONResponse(res, 200, filteredData)
   } 
   else if (req.url.startsWith('/api/continent') && req.method === 'GET') {
 
