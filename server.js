@@ -2,6 +2,7 @@ import http from 'node:http'
 import { getDataFromDB } from './database/db.js'
 import { sendJSONResponse } from './utils/sendJSONResponse.js'
 import { filterData } from './utils/filterData.js'
+import { getDataByQueryParams } from './utils/getDataByQueryParams.js'
  
 const PORT = 8000
 
@@ -14,13 +15,14 @@ const server = http.createServer(async (req, res) => {
     const destinations = await getDataFromDB()
 
   if (urlObj.pathname === '/api' && req.method === 'GET') {
-    
+    let filteredData;
     if (urlObj.search != '') {
         //NEED TO FILTER DATA IF ' urlObj.search: ?key=value ' exists
         const queryObj =  Object.fromEntries(urlObj.searchParams)
-        console.log(queryObj['country'])  
+  
+        filteredData = getDataByQueryParams(destinations, queryObj)
     } else {
-        let filteredData = destinations
+        filteredData = destinations
     }
     sendJSONResponse(res, 200, filteredData)
   } 
