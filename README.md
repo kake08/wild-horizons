@@ -34,3 +34,5 @@ This project is a RESTful API server that provides travel destination informatio
 - **Query Parameters**: `?country=`, `?continent=`, `?is_open_to_public=`
 - **Modular Architecture** - Separated concerns into utility functions
 - **JSON Responses** - Consistent API response format
+
+TEST
