@@ -15,15 +15,8 @@ const server = http.createServer(async (req, res) => {
     const destinations = await getDataFromDB()
 
   if (urlObj.pathname === '/api' && req.method === 'GET') {
-    let filteredData;
-    if (urlObj.search != '') {
-        //NEED TO FILTER DATA IF ' urlObj.search: ?key=value ' exists
-        const queryObj =  Object.fromEntries(urlObj.searchParams)
-  
-        filteredData = getDataByQueryParams(destinations, queryObj)
-    } else {
-        filteredData = destinations
-    }
+    const queryObj =  Object.fromEntries(urlObj.searchParams)
+    let filteredData = getDataByQueryParams(destinations, queryObj)
     sendJSONResponse(res, 200, filteredData)
   } 
   else if (req.url.startsWith('/api/continent') && req.method === 'GET') {
