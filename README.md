@@ -35,4 +35,3 @@ This project is a RESTful API server that provides travel destination informatio
 - **Modular Architecture** - Separated concerns into utility functions
 - **JSON Responses** - Consistent API response format
 
-TESTING CRED
