@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/kake08/wild-horizons#readme",
   "dependencies": {
+    "axios": "^1.11.0",
+    "fs-extra": "^11.3.1",
     "nodemon": "^3.1.10"
   }
 }
